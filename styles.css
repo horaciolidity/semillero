@@ -48,6 +48,11 @@ body, html {
 .main-content h1 {
     color: #343a40;
 }
+#fixErrorsButton {
+    display: none;
+    /* Otros estilos para tu botón */
+}
+
 
 section {
     margin-top: 20px;
