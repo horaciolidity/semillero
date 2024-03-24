@@ -1,31 +1,37 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const connectButton = document.getElementById('connectButton');
-    const web3Status = document.getElementById('web3Status');
     const userAddress = document.getElementById('userAddress');
 
-    // Función para conectar MetaMask
-    connectButton.addEventListener('click', async () => {
+    // Función para resumir la dirección del usuario
+    const summarizeAddress = (address) => `${address.slice(0, 6)}...${address.slice(-4)}`;
+
+    // Función para conectar a MetaMask
+    const connectMetaMask = async () => {
         try {
             // Solicitar al usuario que conecte MetaMask
-            await ethereum.request({ method: 'eth_requestAccounts' });
-            // Mostrar estado activo
-            web3Status.textContent = 'Web3 Activo';
-            web3Status.style.color = 'green';
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            // Cambiar el texto del botón a Web3 Activo
+            connectButton.textContent = 'Web3 Activo';
+            // Mostrar la dirección resumida del usuario
+            if (accounts.length > 0) {
+                userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
+            }
         } catch (error) {
             console.error(error);
-            // Mostrar estado inactivo si hay un error
-            web3Status.textContent = 'Web3 Inactivo';
-            web3Status.style.color = 'red';
+            connectButton.textContent = 'Conectar a MetaMask';
         }
-    });
+    };
 
-    // Obtener la dirección del usuario si MetaMask está conectado
+    connectButton.addEventListener('click', connectMetaMask);
+
+    // Escuchar cambios en las cuentas y actualizar la interfaz
     ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length > 0) {
-            userAddress.textContent = `Dirección del Usuario: ${accounts[0]}`;
+            userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
+            connectButton.textContent = 'Web3 Activo';
         } else {
             userAddress.textContent = '';
+            connectButton.textContent = 'Conectar a MetaMask';
         }
     });
 });
-
