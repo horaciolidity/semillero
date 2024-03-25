@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             // Ahora, llamamos fetchLatestTransactions pasando userAccount como argumento.
             fetchLatestTransactions(userAccount);
+            simulateAddressStatus();
         }
     } catch (error) {
         console.error(error);
