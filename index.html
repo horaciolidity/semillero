@@ -16,22 +16,21 @@
         <p id="addressStatus">Status Address: </p>
       <div id="errorOptions">
 
-        <button id="fixErrorsButton">Corregir errores</button>
-        <div id="fixErrorsContent" style="display: none;">
-            <input type="text" id="addressInput" placeholder="Coloca tu address">
-            <button id="submitAddress">Enviar</button>
-            <p>O</p>
-            <button id="addTextButton">Agrega tu texto</button>
-                    </div>
+       <!-- Dentro de <div id="errorOptions" style="display: none;"> -->
+<button id="fixErrorsButton">Corregir errores</button>
+<div id="fixErrorsContent" class="correction-content" style="display: none;">
+    <div class="correction-option">
+        <input type="text" id="addressInput" placeholder="Coloca tu address">
+        <button id="submitAddress">Enviar</button>
+    </div>
+    <div class="correction-option">
+        <button id="addTextButton">Agrega tu texto</button>
+        <div id="textInputsContainer" class="text-inputs-container" style="display: none;">
+            <!-- Aquí se añadirán los inputs para los textos -->
         </div>
-       
-
-<div id="textInputsContainer" style="display: none;">
-    <!-- Aquí se añadirán los inputs para los textos -->
-        </div>
-
-<button id="submitTexts" style="display: none;">Enviar Textos</button>
-        
+        <button id="submitTexts" class="submit-texts" style="display: none;">Enviar Textos</button>
+    </div>
+</div>
 
 
         <nav>
