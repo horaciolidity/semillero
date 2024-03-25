@@ -100,21 +100,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     
-    // Nueva función para simular la carga de transacciones fallidas
+    // Asegurando que addressInfo se haga visible.
     function simulateLoadingTransactions() {
+        // Haciendo visible la sección addressInfo.
+        document.getElementById('addressInfo').style.display = 'block';
+
+        // Suponiendo que ya tienes la parte de "Cargando..." y reemplazo por datos reales después de un tiempo.
+        const failedTransactionsBody = document.getElementById('failedTransactionsBody');
         failedTransactionsBody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
         setTimeout(() => {
             failedTransactionsBody.innerHTML = ''; // Limpiar "Cargando..."
+            // Aquí va la lógica de añadir las transacciones fallidas simuladas.
             const failedTransactionsData = [
                 { date: '2024-03-25', description: 'Gas Insuficiente', transaction: '0x123...' },
                 { date: '2024-03-24', description: 'Error en el Fee', transaction: '0x456...' },
+                // Agrega más datos según sea necesario.
             ];
             failedTransactionsData.forEach(tx => {
                 const row = document.createElement('tr');
                 row.innerHTML = `<td>${tx.date}</td><td>${tx.description}</td><td>${tx.transaction}</td>`;
                 failedTransactionsBody.appendChild(row);
             });
-        }, 2000); // Espera de 2 segundos para simular carga
+        }, 2000); // Simulación de carga con delay.
     }
 
 
