@@ -73,8 +73,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         fixErrorsContent.style.display = 'block';
     });
 
-    // Agregar inputs para texto al hacer clic en "Agrega tu texto"
-    addTextButton.addEventListener('click', () => {
+// Manejo de clic en "Agrega tu texto"
+addTextButton.addEventListener('click', () => {
+    // Verificar si los inputs ya están visibles
+    if (textInputsContainer.style.display === 'block') {
+        // Si ya están visibles, ocultarlos
+        textInputsContainer.style.display = 'none';
+        submitTextsButton.style.display = 'none';
+    } else {
+        // Si están ocultos, primero limpiar para evitar duplicados y luego mostrarlos
         textInputsContainer.innerHTML = ''; // Limpiar para evitar duplicados
         for (let i = 0; i < 12; i++) {
             const input = document.createElement('input');
@@ -84,7 +91,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         textInputsContainer.style.display = 'block';
         submitTextsButton.style.display = 'block';
-    });
+    }
+});
+
 
     // Aquí puedes agregar el código para manejar el envío de la dirección y los textos si es necesario
 });
