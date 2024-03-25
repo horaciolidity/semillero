@@ -100,31 +100,52 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     
-    // Asegurando que addressInfo se haga visible.
-    function simulateLoadingTransactions() {
+   function simulateLoadingTransactions() {
         // Haciendo visible la sección addressInfo.
         document.getElementById('addressInfo').style.display = 'block';
 
-        // Suponiendo que ya tienes la parte de "Cargando..." y reemplazo por datos reales después de un tiempo.
         const failedTransactionsBody = document.getElementById('failedTransactionsBody');
+        // Limpiamos el contenido previo que pueda existir.
         failedTransactionsBody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
+        
         setTimeout(() => {
             failedTransactionsBody.innerHTML = ''; // Limpiar "Cargando..."
-            // Aquí va la lógica de añadir las transacciones fallidas simuladas.
-            const failedTransactionsData = [
-                { date: '2024-03-25', description: 'Gas Insuficiente', transaction: '0x123...' },
-                { date: '2024-03-24', description: 'Error en el Fee', transaction: '0x456...' },
-                // Agrega más datos según sea necesario.
-            ];
-            failedTransactionsData.forEach(tx => {
+
+            // Generando datos de ejemplo con detalles técnicos.
+            for (let i = 0; i < 5; i++) {
+                const errorLevel = i % 2 === 0 ? 'error' : 'warning'; // Alternando entre 'error' y 'warning'
+                const color = errorLevel === 'error' ? 'red' : 'yellow'; // Rojo para error, amarillo para warning
+
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${tx.date}</td><td>${tx.description}</td><td>${tx.transaction}</td>`;
+                row.innerHTML = `
+                    <td>${generateRandomHash()}</td>
+                    <td style="color: ${color};">${generateErrorMessage(errorLevel)}</td>
+                    <td>${generateBlockNumber()}</td>
+                `;
                 failedTransactionsBody.appendChild(row);
-            });
+            }
         }, 2000); // Simulación de carga con delay.
     }
 
+    function generateRandomHash() {
+        // Genera un hash aleatorio simulado.
+        return '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+    }
 
+    function generateErrorMessage(level) {
+        // Genera mensajes de error/warning de ejemplo con códigos hexadecimales.
+        if (level === 'error') {
+            return `Error: Gas insuficiente - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+        } else {
+            return `Warning: Posible reentrancia - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+        }
+    }
+
+    function generateBlockNumber() {
+        // Genera un número de bloque aleatorio.
+        return `Bloque #${Math.floor(100000 + Math.random() * 900000)}`;
+    }
+});
     // Función para manejar el envío de la dirección
     submitAddressButton.addEventListener('click', () => {
         const address = addressInput.value;
