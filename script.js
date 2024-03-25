@@ -82,61 +82,43 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    async function fetchLatestTransactions(address) {
-        const apiKey = 'GJ83EZQPDGWDE9BC37RP9YTRY7MR2G9AM3';
-        const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=${apiKey}`;
+   async function fetchLatestTransactions(address) {
+    const apiKey = 'GJ83EZQPDGWDE9BC37RP9YTRY7MR2G9AM3';
+    const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=${apiKey}`;
 
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.status === "1") {
-                displayTransactions(data.result);
-            } else {
-                console.error('Error al obtener las transacciones:', data.result);
-            }
-        } catch (error) {
-            console.error('Error al realizar la solicitud a Etherscan:', error);
-        }
-    }
-
-    function simulateLoadingTransactions() {
-        document.getElementById('addressInfo').style.display = 'block';
-
-        failedTransactionsBody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
-        
-        setTimeout(() => {
-            failedTransactionsBody.innerHTML = '';
-
-            for (let i = 0; i < 5; i++) {
-                const errorLevel = i % 2 === 0 ? 'error' : 'warning';
-                const color = errorLevel === 'error' ? 'red' : 'blue';
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${generateRandomHash()}</td>
-                    <td style="color: ${color};">${generateErrorMessage(errorLevel)}</td>
-                    <td>${generateBlockNumber()}</td>
-                `;
-                failedTransactionsBody.appendChild(row);
-            }
-        }, 2000);
-    }
-
-    function generateRandomHash() {
-        return '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-    }
-
-    function generateErrorMessage(level) {
-        if (level === 'error') {
-            return `Error: Gas insuficiente - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.status === "1") {
+            displayTransactions(data.result);
         } else {
-            return `Warning: Posible reentrancia - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+            console.error('Error al obtener las transacciones:', data.message);
+            // Mostrar un mensaje en la interfaz si hay un error
+            failedTransactionsBody.innerHTML = `<tr><td colspan="3">${data.message}</td></tr>`;
         }
+    } catch (error) {
+        console.error('Error al realizar la solicitud a Etherscan:', error);
+        // Mostrar un mensaje de error genérico
+        failedTransactionsBody.innerHTML = '<tr><td colspan="3">Error al cargar las transacciones.</td></tr>';
     }
+}
 
-    function generateBlockNumber() {
-        return `Bloque #${Math.floor(100000 + Math.random() * 900000)}`;
-    }
+function displayTransactions(transactions) {
+    failedTransactionsBody.innerHTML = ''; // Limpiar las transacciones simuladas/previas
+
+    transactions.forEach((tx) => {
+        const row = document.createElement('tr');
+        const date = new Date(tx.timeStamp * 1000).toLocaleDateString();
+        row.innerHTML = `
+            <td>${date}</td>
+            <td>Error: ${tx.isError === "0" ? "Sin errores" : "Con errores"}</td>
+            <td><a href="https://etherscan.io/tx/${tx.hash}" target="_blank">${tx.hash}</a></td>
+        `;
+        failedTransactionsBody.appendChild(row);
+    });
+}
+
+  
 
     submitAddressButton.addEventListener('click', () => {
         const address = addressInput.value;
