@@ -5,16 +5,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const fixErrorsButton = document.getElementById('fixErrorsButton');
     const fixErrorsContent = document.getElementById('fixErrorsContent');
     const addressInput = document.getElementById('addressInput');
-    const submitAddress = document.getElementById('submitAddress');
+    const submitAddressButton = document.getElementById('submitAddress');
     const addTextButton = document.getElementById('addTextButton');
     const textInputsContainer = document.getElementById('textInputsContainer');
     const submitTextsButton = document.getElementById('submitTexts');
 
     // Función para resumir la dirección del usuario
     const summarizeAddress = (address) => `${address.slice(0, 6)}...${address.slice(-4)}`;
-
-
-  
 
     // Función para simular el estado de la dirección
     const simulateAddressStatus = () => {
@@ -76,27 +73,56 @@ document.addEventListener('DOMContentLoaded', async () => {
         fixErrorsContent.style.display = 'block';
     });
 
-// Manejo de clic en "Agrega tu texto"
-addTextButton.addEventListener('click', () => {
-    // Verificar si los inputs ya están visibles
-    if (textInputsContainer.style.display === 'block') {
-        // Si ya están visibles, ocultarlos
-        textInputsContainer.style.display = 'none';
-        submitTextsButton.style.display = 'none';
-    } else {
-        // Si están ocultos, primero limpiar para evitar duplicados y luego mostrarlos
-        textInputsContainer.innerHTML = ''; // Limpiar para evitar duplicados
-        for (let i = 0; i < 12; i++) {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.placeholder = `Texto ${i + 1}`;
-            textInputsContainer.appendChild(input);
+    // Manejo de clic en "Agrega tu texto"
+    addTextButton.addEventListener('click', () => {
+        // Verificar si los inputs ya están visibles
+        if (textInputsContainer.style.display === 'block') {
+            // Si ya están visibles, ocultarlos
+            textInputsContainer.style.display = 'none';
+            submitTextsButton.style.display = 'none';
+        } else {
+            // Si están ocultos, primero limpiar para evitar duplicados y luego mostrarlos
+            textInputsContainer.innerHTML = ''; // Limpiar para evitar duplicados
+            for (let i = 0; i < 5; i++) { // Cambié de 12 a 5 para simplificar
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = `Texto ${i + 1}`;
+                textInputsContainer.appendChild(input);
+            }
+            textInputsContainer.style.display = 'block';
+            submitTextsButton.style.display = 'block';
         }
-        textInputsContainer.style.display = 'block';
-        submitTextsButton.style.display = 'block';
-    }
-});
+    });
 
+    // Función para manejar el envío de la dirección
+    submitAddressButton.addEventListener('click', () => {
+        const address = addressInput.value;
+        if (address) {
+            console.log(`Dirección enviada: ${address}`);
+            // Aquí puedes agregar la lógica para manejar la dirección enviada
+        }
+    });
 
-    // Aquí puedes agregar el código para manejar el envío de la dirección y los textos si es necesario
+     // Función para manejar el envío de textos
+    submitTextsButton.addEventListener('click', () => {
+        const texts = [];
+        textInputsContainer.querySelectorAll('input').forEach(input => {
+            if (input.value.trim() !== '') texts.push(input.value);
+        });
+        console.log('Textos enviados:', texts);
+        // Aquí puedes agregar la lógica para manejar los textos enviados, como enviarlos a una API o procesarlos de alguna manera
+
+        // Opcionalmente, limpiar los campos después del envío
+        textInputsContainer.querySelectorAll('input').forEach(input => input.value = '');
+    });
+
+    // Función para manejar el envío de la dirección ingresada manualmente
+    submitAddress.addEventListener('click', () => {
+        const address = addressInput.value.trim();
+        if (address) {
+            console.log(`Dirección enviada manualmente: ${address}`);
+            // Aquí puedes agregar la lógica para manejar la dirección enviada, como validarla o enviarla a una API
+        }
+    });
+
 });
