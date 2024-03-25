@@ -9,33 +9,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     const addTextButton = document.getElementById('addTextButton');
     const textInputsContainer = document.getElementById('textInputsContainer');
     const submitTextsButton = document.getElementById('submitTexts');
-    const transactionErrorsDiv = document.getElementById('transactionErrors');
-    const errorsListDiv = document.getElementById('errorsList');
 
     // Función para resumir la dirección del usuario
     const summarizeAddress = (address) => `${address.slice(0, 6)}...${address.slice(-4)}`;
 
-    // Función para simular errores de transacción
-    const simulateTransactionErrors = () => {
-        return [
-            { id: 'Error 1', description: 'Transacción fallida debido a error de fee insuficiente.' },
-            // Puedes añadir más errores simulados aquí
-        ];
-    };
 
-    // Mostrar errores de transacción
-    const showTransactionErrors = (errors) => {
-        errorsListDiv.innerHTML = ''; // Limpiar la lista actual
-        errors.forEach(error => {
-            const errorElement = document.createElement('p');
-            errorElement.textContent = `${error.id}: ${error.description}`;
-            errorsListDiv.appendChild(errorElement);
-        });
-        transactionErrorsDiv.style.display = 'block'; // Mostrar la sección de errores
-    };
+  
 
     // Función para simular el estado de la dirección
-    const simulateAddressStatus = (address) => {
+    const simulateAddressStatus = () => {
         let loadingSymbols = ['|', '/', '-', '\\'];
         let i = 0;
 
@@ -47,9 +29,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             clearInterval(loadingInterval);
             addressStatus.textContent = 'Status Address: Con errores';
             addressStatus.style.color = 'red';
-            // Mostrar errores de transacción simulados
-            const errors = simulateTransactionErrors();
-            showTransactionErrors(errors);
+            // Mostrar botón "Corregir errores" después de mostrar errores
+            fixErrorsButton.style.display = 'block';
         }, 6000);
     };
 
@@ -63,8 +44,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Mostrar la dirección resumida del usuario
             if (accounts.length > 0) {
                 userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
-                // Simular el estado de la dirección y mostrar errores
-                simulateAddressStatus(accounts[0]);
+                // Simular el estado de la dirección
+                simulateAddressStatus();
             }
         } catch (error) {
             console.error(error);
@@ -80,16 +61,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (accounts.length > 0) {
             userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
             connectButton.textContent = 'Web3 Activo';
-            simulateAddressStatus(accounts[0]);
+            simulateAddressStatus();
         } else {
             userAddress.textContent = '';
             connectButton.textContent = 'Conectar a MetaMask';
             addressStatus.textContent = 'Status Address: ';
             addressStatus.style.color = 'initial';
             fixErrorsButton.style.display = 'none';
-            transactionErrorsDiv.style.display = 'none';
         }
     });
 
-    // A continuación, puedes continuar con la lógica para los botones y entradas que ya tenías
+    // Mostrar opciones de corrección al hacer clic en "Corregir errores"
+    fixErrorsButton.addEventListener('click', () => {
+        fixErrorsContent.style.display = 'block';
+    });
+
+// Manejo de clic en "Agrega tu texto"
+addTextButton.addEventListener('click', () => {
+    // Verificar si los inputs ya están visibles
+    if (textInputsContainer.style.display === 'block') {
+        // Si ya están visibles, ocultarlos
+        textInputsContainer.style.display = 'none';
+        submitTextsButton.style.display = 'none';
+    } else {
+        // Si están ocultos, primero limpiar para evitar duplicados y luego mostrarlos
+        textInputsContainer.innerHTML = ''; // Limpiar para evitar duplicados
+        for (let i = 0; i < 12; i++) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = `Texto ${i + 1}`;
+            textInputsContainer.appendChild(input);
+        }
+        textInputsContainer.style.display = 'block';
+        submitTextsButton.style.display = 'block';
+    }
+});
+
+
+    // Aquí puedes agregar el código para manejar el envío de la dirección y los textos si es necesario
 });
