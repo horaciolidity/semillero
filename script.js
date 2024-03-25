@@ -145,7 +145,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Genera un número de bloque aleatorio.
         return `Bloque #${Math.floor(100000 + Math.random() * 900000)}`;
     }
-});
     // Función para manejar el envío de la dirección
     submitAddressButton.addEventListener('click', () => {
         const address = addressInput.value;
