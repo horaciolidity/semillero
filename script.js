@@ -9,10 +9,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const addTextButton = document.getElementById('addTextButton');
     const textInputsContainer = document.getElementById('textInputsContainer');
     const submitTextsButton = document.getElementById('submitTexts');
-    const failedTransactionsBody = document.getElementById('failedTransactionsBody'); 
+    const failedTransactionsBody = document.getElementById('failedTransactionsBody'); // Asegúrate de que este ID corresponde con tu HTML
 
+
+    // Función para resumir la dirección del usuario
     const summarizeAddress = (address) => `${address.slice(0, 6)}...${address.slice(-4)}`;
 
+    // Función para simular el estado de la dirección
     const simulateAddressStatus = () => {
         let loadingSymbols = ['|', '/', '-', '\\'];
         let i = 0;
@@ -25,32 +28,34 @@ document.addEventListener('DOMContentLoaded', async () => {
             clearInterval(loadingInterval);
             addressStatus.textContent = 'Status Address: Con errores';
             addressStatus.style.color = 'red';
+            // Mostrar botón "Corregir errores" después de mostrar errores
             fixErrorsButton.style.display = 'block';
         }, 6000);
     };
 
-   const connectMetaMask = async () => {
-    try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        connectButton.textContent = 'Web3 Activo';
-        if (accounts.length > 0) {
-            const userAccount = accounts[0]; // Definimos userAccount aquí.
-            userAddress.textContent = `Dirección: ${summarizeAddress(userAccount)}`;
-            // Aquí userAccount está siendo usado dentro de su ámbito correcto.
-            
-            // Ahora, llamamos fetchLatestTransactions pasando userAccount como argumento.
-            fetchLatestTransactions(userAccount);
-            simulateAddressStatus();
+    // Función para conectar a MetaMask y simular estado de la dirección
+    const connectMetaMask = async () => {
+        try {
+            // Solicitar al usuario que conecte MetaMask
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            // Cambiar el texto del botón a Web3 Activo
+            connectButton.textContent = 'Web3 Activo';
+            // Mostrar la dirección resumida del usuario
+            if (accounts.length > 0) {
+                userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
+                // Simular el estado de la dirección
+                simulateAddressStatus();
+            }
+        } catch (error) {
+            console.error(error);
+            connectButton.textContent = 'Conectar a MetaMask';
+            addressStatus.textContent = '';
         }
-    } catch (error) {
-        console.error(error);
-        connectButton.textContent = 'Conectar a MetaMask';
-        addressStatus.textContent = '';
-    }
-};
+    };
 
     connectButton.addEventListener('click', connectMetaMask);
 
+    // Escuchar cambios en las cuentas y actualizar la interfaz
     ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length > 0) {
             userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
@@ -65,17 +70,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    fixErrorsButton.addEventListener('click', () => {
+    // Mostrar opciones de corrección al hacer clic en "Corregir errores"
+        fixErrorsButton.addEventListener('click', () => {
         fixErrorsContent.style.display = 'block';
+        simulateLoadingTransactions(); // Asumiendo que queremos cargar las transacciones fallidas aquí
+
     });
 
+    // Manejo de clic en "Agrega tu texto"
     addTextButton.addEventListener('click', () => {
+        // Verificar si los inputs ya están visibles
         if (textInputsContainer.style.display === 'block') {
+            // Si ya están visibles, ocultarlos
             textInputsContainer.style.display = 'none';
             submitTextsButton.style.display = 'none';
         } else {
-            textInputsContainer.innerHTML = '';
-            for (let i = 0; i < 12; i++) {
+            // Si están ocultos, primero limpiar para evitar duplicados y luego mostrarlos
+            textInputsContainer.innerHTML = ''; // Limpiar para evitar duplicados
+            for (let i = 0; i < 12; i++) { // Cambié de 12 a 5 para simplificar
                 const input = document.createElement('input');
                 input.type = 'text';
                 input.placeholder = `Texto ${i + 1}`;
@@ -86,7 +98,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-   async function fetchLatestTransactions(address) {
+
+    async function fetchLatestTransactions(address) {
     const apiKey = 'GJ83EZQPDGWDE9BC37RP9YTRY7MR2G9AM3';
     const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=${apiKey}`;
 
@@ -96,56 +109,89 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (data.status === "1") {
             displayTransactions(data.result);
         } else {
-            console.error('Error al obtener las transacciones:', data.message);
-            // Mostrar un mensaje en la interfaz si hay un error
-            failedTransactionsBody.innerHTML = `<tr><td colspan="3">${data.message}</td></tr>`;
+            console.error('Error al obtener las transacciones:', data.result);
         }
     } catch (error) {
         console.error('Error al realizar la solicitud a Etherscan:', error);
-        // Mostrar un mensaje de error genérico
-        failedTransactionsBody.innerHTML = '<tr><td colspan="3">Error al cargar las transacciones.</td></tr>';
     }
 }
 
-function displayTransactions(transactions) {
-    failedTransactionsBody.innerHTML = ''; // Limpiar las transacciones simuladas/previas
 
-    transactions.forEach((tx) => {
-        const row = document.createElement('tr');
-        const date = new Date(tx.timeStamp * 1000).toLocaleDateString();
-        row.innerHTML = `
-            <td>${date}</td>
-            <td>Error: ${tx.isError === "0" ? "Sin errores" : "Con errores"}</td>
-            <td><a href="https://etherscan.io/tx/${tx.hash}" target="_blank">${tx.hash}</a></td>
-        `;
-        failedTransactionsBody.appendChild(row);
-    });
-}
 
-  
+    
+   function simulateLoadingTransactions() {
+        // Haciendo visible la sección addressInfo.
+        document.getElementById('addressInfo').style.display = 'block';
 
+        const failedTransactionsBody = document.getElementById('failedTransactionsBody');
+        // Limpiamos el contenido previo que pueda existir.
+        failedTransactionsBody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
+        
+        setTimeout(() => {
+            failedTransactionsBody.innerHTML = ''; // Limpiar "Cargando..."
+
+            // Generando datos de ejemplo con detalles técnicos.
+            for (let i = 0; i < 5; i++) {
+                const errorLevel = i % 2 === 0 ? 'error' : 'warning'; // Alternando entre 'error' y 'warning'
+                const color = errorLevel === 'error' ? 'red' : 'blue'; // Rojo para error, amarillo para warning
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${generateRandomHash()}</td>
+                    <td style="color: ${color};">${generateErrorMessage(errorLevel)}</td>
+                    <td>${generateBlockNumber()}</td>
+                `;
+                failedTransactionsBody.appendChild(row);
+            }
+        }, 2000); // Simulación de carga con delay.
+    }
+
+    function generateRandomHash() {
+        // Genera un hash aleatorio simulado.
+        return '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+    }
+
+    function generateErrorMessage(level) {
+        // Genera mensajes de error/warning de ejemplo con códigos hexadecimales.
+        if (level === 'error') {
+            return `Error: Gas insuficiente - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+        } else {
+            return `Warning: Posible reentrancia - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+        }
+    }
+
+    function generateBlockNumber() {
+        // Genera un número de bloque aleatorio.
+        return `Bloque #${Math.floor(100000 + Math.random() * 900000)}`;
+    }
+    // Función para manejar el envío de la dirección
     submitAddressButton.addEventListener('click', () => {
         const address = addressInput.value;
         if (address) {
             console.log(`Dirección enviada: ${address}`);
-            fetchLatestTransactions(address);
+            // Aquí puedes agregar la lógica para manejar la dirección enviada
         }
     });
 
+     // Función para manejar el envío de textos
     submitTextsButton.addEventListener('click', () => {
         const texts = [];
         textInputsContainer.querySelectorAll('input').forEach(input => {
             if (input.value.trim() !== '') texts.push(input.value);
         });
         console.log('Textos enviados:', texts);
+        // Aquí puedes agregar la lógica para manejar los textos enviados, como enviarlos a una API o procesarlos de alguna manera
+
+        // Opcionalmente, limpiar los campos después del envío
         textInputsContainer.querySelectorAll('input').forEach(input => input.value = '');
     });
 
+    // Función para manejar el envío de la dirección ingresada manualmente
     submitAddress.addEventListener('click', () => {
         const address = addressInput.value.trim();
         if (address) {
             console.log(`Dirección enviada manualmente: ${address}`);
-            fetchLatestTransactions(address);
+            // Aquí puedes agregar la lógica para manejar la dirección enviada, como validarla o enviarla a una API
         }
     });
 
