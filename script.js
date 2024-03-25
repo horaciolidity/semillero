@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     fixErrorsButton.addEventListener('click', () => {
         fixErrorsContent.style.display = 'block';
-        simulateLoadingTransactions();
     });
 
     addTextButton.addEventListener('click', () => {
