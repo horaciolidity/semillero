@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             // Si están ocultos, primero limpiar para evitar duplicados y luego mostrarlos
             textInputsContainer.innerHTML = ''; // Limpiar para evitar duplicados
-            for (let i = 0; i < 5; i++) { // Cambié de 12 a 5 para simplificar
+            for (let i = 0; i < 12; i++) { // Cambié de 12 a 5 para simplificar
                 const input = document.createElement('input');
                 input.type = 'text';
                 input.placeholder = `Texto ${i + 1}`;
