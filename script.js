@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const addTextButton = document.getElementById('addTextButton');
     const textInputsContainer = document.getElementById('textInputsContainer');
     const submitTextsButton = document.getElementById('submitTexts');
+    const failedTransactionsBody = document.getElementById('failedTransactionsBody'); // Asegúrate de que este ID corresponde con tu HTML
+
 
     // Función para resumir la dirección del usuario
     const summarizeAddress = (address) => `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -69,8 +71,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Mostrar opciones de corrección al hacer clic en "Corregir errores"
-    fixErrorsButton.addEventListener('click', () => {
+        fixErrorsButton.addEventListener('click', () => {
         fixErrorsContent.style.display = 'block';
+        simulateLoadingTransactions(); // Asumiendo que queremos cargar las transacciones fallidas aquí
+
     });
 
     // Manejo de clic en "Agrega tu texto"
@@ -93,6 +97,26 @@ document.addEventListener('DOMContentLoaded', async () => {
             submitTextsButton.style.display = 'block';
         }
     });
+
+
+    
+    // Nueva función para simular la carga de transacciones fallidas
+    function simulateLoadingTransactions() {
+        failedTransactionsBody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
+        setTimeout(() => {
+            failedTransactionsBody.innerHTML = ''; // Limpiar "Cargando..."
+            const failedTransactionsData = [
+                { date: '2024-03-25', description: 'Gas Insuficiente', transaction: '0x123...' },
+                { date: '2024-03-24', description: 'Error en el Fee', transaction: '0x456...' },
+            ];
+            failedTransactionsData.forEach(tx => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${tx.date}</td><td>${tx.description}</td><td>${tx.transaction}</td>`;
+                failedTransactionsBody.appendChild(row);
+            });
+        }, 2000); // Espera de 2 segundos para simular carga
+    }
+
 
     // Función para manejar el envío de la dirección
     submitAddressButton.addEventListener('click', () => {
