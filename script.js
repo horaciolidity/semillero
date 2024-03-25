@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (accounts.length > 0) {
                 userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
                 simulateAddressStatus();
+                fetchLatestTransactions(userAccount);
+
             }
         } catch (error) {
             console.error(error);
