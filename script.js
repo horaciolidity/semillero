@@ -29,22 +29,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 6000);
     };
 
-    const connectMetaMask = async () => {
-        try {
-            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            connectButton.textContent = 'Web3 Activo';
-            if (accounts.length > 0) {
-                userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
-                simulateAddressStatus();
-                fetchLatestTransactions(userAccount);
-
-            }
-        } catch (error) {
-            console.error(error);
-            connectButton.textContent = 'Conectar a MetaMask';
-            addressStatus.textContent = '';
+   const connectMetaMask = async () => {
+    try {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        connectButton.textContent = 'Web3 Activo';
+        if (accounts.length > 0) {
+            const userAccount = accounts[0]; // Definimos userAccount aquí.
+            userAddress.textContent = `Dirección: ${summarizeAddress(userAccount)}`;
+            // Aquí userAccount está siendo usado dentro de su ámbito correcto.
+            
+            // Ahora, llamamos fetchLatestTransactions pasando userAccount como argumento.
+            fetchLatestTransactions(userAccount);
         }
-    };
+    } catch (error) {
+        console.error(error);
+        connectButton.textContent = 'Conectar a MetaMask';
+        addressStatus.textContent = '';
+    }
+};
 
     connectButton.addEventListener('click', connectMetaMask);
 
