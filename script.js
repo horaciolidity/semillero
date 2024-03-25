@@ -99,6 +99,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
 
+    async function fetchLatestTransactions(address) {
+    const apiKey = 'GJ83EZQPDGWDE9BC37RP9YTRY7MR2G9AM3';
+    const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.status === "1") {
+            displayTransactions(data.result);
+        } else {
+            console.error('Error al obtener las transacciones:', data.result);
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud a Etherscan:', error);
+    }
+}
+
+
+
     
    function simulateLoadingTransactions() {
         // Haciendo visible la sección addressInfo.
