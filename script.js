@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Generando datos de ejemplo con detalles técnicos.
             for (let i = 0; i < 5; i++) {
                 const errorLevel = i % 2 === 0 ? 'error' : 'warning'; // Alternando entre 'error' y 'warning'
-                const color = errorLevel === 'error' ? 'red' : 'yellow'; // Rojo para error, amarillo para warning
+                const color = errorLevel === 'error' ? 'red' : 'blue'; // Rojo para error, amarillo para warning
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
