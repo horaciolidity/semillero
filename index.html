@@ -44,26 +44,30 @@
             </ul>
         </nav>
     </div>
-    <div class="main-content">
-        <h1>Perfil Address</h1>
-        <section id="perfil">
-            <h2>Perfil</h2>
-            <p>Configuración de perfil...</p>
-        </section>
-        <section id="seguridad">
-            <h2>Seguridad</h2>
-            <p>Configuración de seguridad...</p>
-        </section>
-        <section id="notificaciones">
-            <h2>Notificaciones</h2>
-            <p>Configuración de notificaciones...</p>
-        </section>
-        <section id="privacidad">
-            <h2>Privacidad</h2>
-            <p>Configuración de privacidad...</p>
-        </section>
+ <div class="main-content">
+    <h1>Historial de Transacciones Fallidas</h1>
+    <!-- Sección de información de la dirección que será visible tras conectarse -->
+    <div id="addressInfo" style="display: none;">
+        <h2>Dirección Conectada: <span id="connectedAddress"></span></h2>
+        <p>Revisión de eventos fallidos para la dirección especificada debido a error en fee.</p>
+        <div id="failedTransactionsList">
+            <h2>Eventos Fallidos Recientes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Descripción del Error</th>
+                        <th>Transacción</th>
+                    </tr>
+                </thead>
+                <tbody id="failedTransactionsBody">
+                    <!-- Las filas se agregarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 
 <script src="script.js"></script>
 </body>
