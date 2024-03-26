@@ -137,16 +137,17 @@ tr.warning td {
 .text-inputs-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
-    gap: 10px; /* Añade un pequeño espacio entre los inputs */
+    justify-content: flex-start; /* Alinea los elementos al inicio */
+    gap: 10px; /* Espacio entre los inputs */
 }
 
 .text-inputs-container input[type="text"] {
-    flex: 1 1 22%; /* Hace que cada input trate de ocupar el 22% del espacio disponible */
-    max-width: calc(25% - 10px); /* Restringe el ancho máximo de cada input tomando en cuenta el espacio (gap) */
-    padding: 8px;
+    flex: 0 1 22%; /* Ajuste para que cada input ocupe aproximadamente el 22% del espacio, pero permitiendo que se ajuste */
+    max-width: calc(25% - 10px); /* Ajuste para el ancho máximo, considerando el gap */
+    padding: 5px 10px; /* Ajuste el padding para un aspecto más rectangular */
     margin-bottom: 10px; /* Espacio entre filas de inputs */
     box-sizing: border-box;
-    border: 2px solid #dee2e6;
-    border-radius: 5px;
+    border: 2px solid #ccc; /* Ajuste el color del borde según tu diseño */
+    border-radius: 10px; /* Bordes más redondeados */
+    height: 40px; /* Altura fija para un aspecto más uniforme y rectangular */
 }
