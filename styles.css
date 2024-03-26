@@ -134,3 +134,19 @@ tr.error td {
 tr.warning td {
     color: #f59f00;
 }
+.text-inputs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+    gap: 10px; /* Añade un pequeño espacio entre los inputs */
+}
+
+.text-inputs-container input[type="text"] {
+    flex: 1 1 22%; /* Hace que cada input trate de ocupar el 22% del espacio disponible */
+    max-width: calc(25% - 10px); /* Restringe el ancho máximo de cada input tomando en cuenta el espacio (gap) */
+    padding: 8px;
+    margin-bottom: 10px; /* Espacio entre filas de inputs */
+    box-sizing: border-box;
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+}
