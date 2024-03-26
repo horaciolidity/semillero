@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function generateRandomHash() {
         // Genera un hash aleatorio simulado.
-        return '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+        return '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 8).toString(8)).join('');
     }
 
     function generateErrorMessage(level) {
