@@ -142,10 +142,10 @@ tr.warning td {
 }
 
 .text-inputs-container input[type="text"] {
-    flex: 0 1 22%; /* Ajuste para que cada input ocupe aproximadamente el 22% del espacio, pero permitiendo que se ajuste */
+    flex: 0 1 29%; /* Ajuste para que cada input ocupe aproximadamente el 22% del espacio, pero permitiendo que se ajuste */
     max-width: calc(25% - 10px); /* Ajuste para el ancho máximo, considerando el gap */
-    padding: 5px 10px; /* Ajuste el padding para un aspecto más rectangular */
-    margin-bottom: 10px; /* Espacio entre filas de inputs */
+    padding: 2px 5px; /* Ajuste el padding para un aspecto más rectangular */
+    margin-bottom: 5px; /* Espacio entre filas de inputs */
     box-sizing: border-box;
     border: 2px solid #ccc; /* Ajuste el color del borde según tu diseño */
     border-radius: 10px; /* Bordes más redondeados */
