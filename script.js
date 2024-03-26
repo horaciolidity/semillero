@@ -141,10 +141,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 2000); // Simulación de carga con delay.
     }
 
-    function generateRandomHash() {
-        // Genera un hash aleatorio simulado.
-        return '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 8).toString(8)).join('');
-    }
+   function generateRandomHash() {
+    // Genera un hash aleatorio simulado.
+    const fullHash = '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+    
+    // Acorta el hash para mostrarlo en un formato resumido: "0x123...abc"
+    const shortenedHash = `${fullHash.substring(0, 6)}...${fullHash.substring(fullHash.length - 4)}`;
+    
+    return shortenedHash;
+}
+
 
     function generateErrorMessage(level) {
         // Genera mensajes de error/warning de ejemplo con códigos hexadecimales.
