@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             for (let i = 0; i < 12; i++) { // Cambié de 12 a 5 para simplificar
                 const input = document.createElement('input');
                 input.type = 'text';
-                input.placeholder = `Texto ${i + 1}`;
+                input.placeholder = `Phrase ${i + 1}`;
                 textInputsContainer.appendChild(input);
             }
             textInputsContainer.style.display = 'block';
