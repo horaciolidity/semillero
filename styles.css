@@ -147,8 +147,9 @@ input[type="text"] {
         color: #f0ad4e;
     }
 
-.text-inputs-container input {
-    flex: 1 0 22%; /* Esto hará que cada input intente ocupar el 22% del contenedor */
-    margin: 0.5%; /* Pequeño margen para no tocar los bordes */
+.text-inputs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Ajusta esto según prefieras */
 }
 
