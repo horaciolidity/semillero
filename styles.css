@@ -149,5 +149,5 @@ tr.warning td {
     box-sizing: border-box;
     border: 2px solid #ccc; /* Ajuste el color del borde según tu diseño */
     border-radius: 10px; /* Bordes más redondeados */
-    height: 20px; /* Altura fija para un aspecto más uniforme y rectangular */
+    height: 30px; /* Altura fija para un aspecto más uniforme y rectangular */
 }
