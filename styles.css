@@ -1,24 +1,27 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fc;
 }
 
 .dashboard {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .sidebar {
-    background-color: #343a40;
-    color: #ffffff;
-    width: 250px;
+    background-color: #1e2125;
+    color: #adb5bd;
+    width: 260px;
     padding: 20px;
+    min-height: 100vh;
 }
 
 .sidebar h2 {
     font-size: 24px;
-    margin-bottom: 20px;
+    color: #ffffff;
+    margin-bottom: 30px;
 }
 
 .sidebar nav ul {
@@ -27,44 +30,41 @@ body, html {
 }
 
 .sidebar nav ul li {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .sidebar nav ul li a {
-    color: #ffffff;
+    color: #adb5bd;
     text-decoration: none;
     transition: color 0.3s ease;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
 }
 
-.sidebar nav ul li a:hover {
-    color: #1abc9c;
+.sidebar nav ul li a:hover, .sidebar nav ul li a.active {
+    background-color: #495057;
+    color: #ffffff;
 }
 
 .main-content {
     flex-grow: 1;
-    padding: 20px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-left: 1px solid #dee2e6;
 }
 
 .main-content h1 {
     color: #343a40;
-}
-#fixErrorsButton {
-    display: none;
-    /* Otros estilos para tu botón */
+    margin-bottom: 20px;
 }
 
-
-section {
+.correction-content, .text-inputs-container, .submit-texts {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 20px;
+    border-radius: 5px;
     margin-top: 20px;
-}
-
-section h2 {
-    color: #343a40;
-}
-.correction-content {
-    margin-top: 10px;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
 }
 
 .correction-option {
@@ -75,81 +75,62 @@ section h2 {
     margin-bottom: 0;
 }
 
-.text-inputs-container {
-    margin-top: 10px;
-}
-
-.submit-texts {
-    margin-top: 10px;
-}
-
-#submitAddress, #submitTexts {
-    margin-left: 5px;
-}
-
-/* Mejora en el diseño de los botones para que sean más atractivos */
-button {
-    background-color: #4CAF50; /* Green */
+button, #submitAddress, #submitTexts {
+    background-color: #007bff;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 24px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 5px 2px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #45a049;
+button:hover, #submitAddress:hover, #submitTexts:hover {
+    background-color: #0056b3;
 }
 
 input[type="text"] {
-    padding: 10px;
-    margin: 5px 0;
+    padding: 12px;
+    margin: 10px 0;
     box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-}
-.main-content {
-        font-family: Arial, sans-serif;
-        color: #333;
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #f5f5f5;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tr.error td {
-        color: #d9534f;
-    }
-
-    tr.warning td {
-        color: #f0ad4e;
-    }
-
-.text-inputs-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; /* Ajusta esto según prefieras */
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    width: 100%;
 }
 
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+th {
+    background-color: #f8f9fa;
+}
+
+tr:hover {
+    background-color: #f1f3f5;
+}
+
+tr.error td {
+    color: #e03131;
+}
+
+tr.warning td {
+    color: #f59f00;
+}
