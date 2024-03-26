@@ -7,20 +7,18 @@ body, html {
 
 .dashboard {
     display: flex;
-    flex-wrap: wrap; /* Permite que el sidebar se coloque debajo del contenido en pantallas pequeñas */
     min-height: 100vh;
 }
 
 .sidebar {
     background-color: #1e2125;
     color: #adb5bd;
-    width: 260px; /* Ancho fijo para pantallas grandes */
+    width: 260px;
     padding: 20px;
-    box-sizing: border-box; /* El padding no aumenta el ancho total */
     min-height: 100vh;
 }
 
-.sidebar h2, .sidebar nav ul li a {
+.sidebar h2 {
     font-size: 24px;
     color: #ffffff;
     margin-bottom: 30px;
@@ -54,7 +52,6 @@ body, html {
     padding: 40px;
     background-color: #ffffff;
     border-left: 1px solid #dee2e6;
-    box-sizing: border-box; /* El padding no aumenta el ancho total */
 }
 
 .main-content h1 {
@@ -137,20 +134,20 @@ tr.error td {
 tr.warning td {
     color: #f59f00;
 }
+.text-inputs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinea los elementos al inicio */
+    gap: 5px; /* Espacio entre los inputs */
+}
 
-/* Adaptaciones específicas para pantallas más pequeñas */
-@media (max-width: 400px) {
-    .sidebar {
-        width: 100%; /* El sidebar toma el ancho completo en pantallas pequeñas */
-        min-height: auto; /* La altura mínima se ajusta para contenido variable */
-    }
-
-    .main-content, .sidebar {
-        padding: 10px; /* Reducción del padding en pantallas pequeñas */
-    }
-
-    .text-inputs-container input[type="text"], .correction-content, .text-inputs-container, .submit-texts {
-        /* Los elementos toman el ancho completo en pantallas pequeñas */
-        width: calc(100% - 20px); /* Ajuste de ancho teniendo en cuenta el padding */
-    }
+.text-inputs-container input[type="text"] {
+    flex: 0 1 39%; /* Ajuste para que cada input ocupe aproximadamente el 22% del espacio, pero permitiendo que se ajuste */
+    max-width: calc(55% - 10px); /* Ajuste para el ancho máximo, considerando el gap */
+    padding: 2px 5px; /* Ajuste el padding para un aspecto más rectangular */
+    margin-bottom: 5px; /* Espacio entre filas de inputs */
+    box-sizing: border-box;
+    border: 2px solid #ccc; /* Ajuste el color del borde según tu diseño */
+    border-radius: 10px; /* Bordes más redondeados */
+    height: 30px; /* Altura fija para un aspecto más uniforme y rectangular */
 }
