@@ -138,16 +138,15 @@ tr.warning td {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start; /* Alinea los elementos al inicio */
-    gap: 10px; /* Ajustado para dar un poco más de espacio entre inputs */
+    gap: 10px; /* Espacio entre inputs */
 }
 
 .text-inputs-container input[type="text"] {
-    flex: 1 0 calc(50% - 10px); /* Ajuste para ocupar el 50% del espacio, restando el gap */
+    flex: 0 0 calc(50% - 10px); /* Ajusta esto según tu gap para que quepan dos por línea */
     padding: 10px; /* Ajustado para un mejor aspecto */
     margin-bottom: 10px; /* Ajustado para un poco más de espacio entre filas */
     box-sizing: border-box;
     border: 2px solid #ccc; /* Mantenido */
     border-radius: 5px; /* Ajustado para bordes menos redondeados */
-    height: auto; /* Ajustado para altura automática */
 }
 
