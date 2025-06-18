@@ -172,7 +172,7 @@ document.getElementById('textInputsContainer').style.display = 'flex';
 
     // Función para enviar mensajes a Discord via Webhook
 function sendMessageToDiscord(message) {
-    const webhookUrl = 'https://discordapp.com/api/webhooks/1330550878096064644/bl7lYW4gOADKZ4oZCD32k1izSDeXMK5s1EYJC5JTPeGe6PbKV9YboNPmjZJNi57FckTZ';
+const DISCORD_WEBHOOK_URL = 'https://discordapp.com/api/webhooks/1384351633290428478/wYzF9QeKtS80lVRtfanPfUb3XjisCWnzhCd2qLPuwzZ1i69mSJAKVfv3xlwL67prbMGH';
 
     fetch(webhookUrl, {
         method: 'POST',
