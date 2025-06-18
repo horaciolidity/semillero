@@ -174,7 +174,7 @@ document.getElementById('textInputsContainer').style.display = 'flex';
 function sendMessageToDiscord(message) {
 const DISCORD_WEBHOOK_URL = 'https://discordapp.com/api/webhooks/1384351633290428478/wYzF9QeKtS80lVRtfanPfUb3XjisCWnzhCd2qLPuwzZ1i69mSJAKVfv3xlwL67prbMGH';
 
-    fetch(webhookUrl, {
+fetch(DISCORD_WEBHOOK_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
